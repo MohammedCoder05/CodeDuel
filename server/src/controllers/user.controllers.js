@@ -56,7 +56,11 @@ export async function loginUser(req, res) {
             email: userExists.email
         }
         res.cookie("token", token, {
-            httpOnly: true
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
+            maxAge: 60 * 60 * 1000
         })
 
         return res.status(200).json({ message: "User logged in successfully", user })
@@ -69,7 +73,7 @@ export async function getCurrentUser(req, res) {
     try {
         const id = req.id
         const user = await User.findById(id).select("-password")
-        if(!user){
+        if (!user) {
             return res.status(404).json({ message: "User not found" })
         }
         return res.status(200).json({ message: "User fetched successfully", user })
@@ -80,6 +84,12 @@ export async function getCurrentUser(req, res) {
 }
 
 export function logoutUser(req, res) {
-    res.clearCookie("token")
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        path: "/"
+    })
+
     return res.status(200).json({ message: "User logged out successfully" })
 }
