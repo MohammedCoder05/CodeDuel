@@ -1,0 +1,21 @@
+// Server-only bank. JSON argument arrays are passed to solve(...args).
+const cases = entries => entries.map(([args, answer]) => ({ input: JSON.stringify(args), expectedOutput: JSON.stringify(answer) }));
+const problem = (title, description, signature, samples, hidden) => ({ title, description, difficulty: 'easy', starterCode: `function solve(${signature}) {\n  // Return your answer here.\n}\n`, sampleTestCases: cases(samples), hiddenTestCases: cases(hidden) });
+export const problemBank = [
+  problem('Sum of Two Numbers', 'Return the sum of the two integers a and b.\n\nArguments: a, b\nReturn: a number.\nConstraints: -1,000,000 ≤ a, b ≤ 1,000,000.', 'a, b',
+    [[[2,3],5], [[-4,9],5]], [[[0,0],0], [[-5,-7],-12], [[1000000,1000000],2000000], [[-1000000,1000000],0], [[9,-12],-3]]),
+  problem('Find Maximum in Array', 'Return the largest integer in the non-empty array nums.\n\nArguments: nums (an array of integers)\nReturn: a number.\nConstraints: 1 ≤ nums.length ≤ 1,000; -1,000,000 ≤ nums[i] ≤ 1,000,000.', 'nums',
+    [[[[3,1,9,4]],9], [[[-8,-2,-5]],-2]], [[[[7]],7], [[[-9,-20,-1]],-1], [[[0,0,0]],0], [[[5,5,2]],5], [[[-1000000,1000000,4]],1000000], [[[10,3,2]],10]]),
+  problem('Reverse a String', 'Return the characters of text in reverse order. Preserve spaces, punctuation, and letter case.\n\nArguments: text (a string)\nReturn: a string. Do not print the answer.\nConstraints: 0 ≤ text.length ≤ 1,000; text contains printable ASCII characters only.', 'text',
+    [[['hello'],'olleh'], [['Code Duel!'],'!leuD edoC']], [[[''],''], [['a'],'a'], [['ab'],'ba'], [[' a! '],' !a '], [['12321'],'12321'], [['AbC'],'CbA']]),
+  problem('Valid Palindrome', 'Return true if text reads the same forwards and backwards after removing non-alphanumeric characters and ignoring letter case. Otherwise return false. An empty normalized string is a palindrome.\n\nArguments: text (a string)\nReturn: a boolean.\nConstraints: 0 ≤ text.length ≤ 1,000; ASCII characters only. Keep letters a-z and digits 0-9 when normalizing.', 'text',
+    [[['A man, a plan, a canal: Panama'],true], [['race a car'],false]], [[[''],true], [['!!!'],true], [['0P'],false], [['abba'],true], [['abca'],false], [['1a2A1'],true]]),
+  problem('Contains Duplicate', 'Return true if any integer appears more than once in nums. Return false when all values are distinct.\n\nArguments: nums (an array of integers)\nReturn: a boolean.\nConstraints: 0 ≤ nums.length ≤ 1,000; -1,000,000 ≤ nums[i] ≤ 1,000,000.', 'nums',
+    [[[[1,2,3,1]],true], [[[1,2,3,4]],false]], [[[[]],false], [[[7]],false], [[[0,0]],true], [[[-1,2,-1]],true], [[[9,3,7,2]],false], [[[1,2,3,4,4]],true]]),
+  problem('Two Sum', 'Return the indices of the two numbers in nums that add up to target. Exactly one valid pair exists. Do not use the same index twice. Return the two indices in ascending order.\n\nArguments: nums (an array of integers), target (an integer)\nReturn: an array [smallerIndex, largerIndex].\nConstraints: 2 ≤ nums.length ≤ 1,000; -1,000,000 ≤ nums[i], target ≤ 1,000,000.', 'nums, target',
+    [[[[2,7,11,15],9],[0,1]], [[[3,2,4],6],[1,2]]], [[[[3,3],6],[0,1]], [[[-3,4,3,90],0],[0,2]], [[[0,4,3,0],0],[0,3]], [[[1,8,2,7],15],[1,3]], [[[-5,-2,-8,-1],-3],[1,3]], [[[1000000,-1000000],0],[0,1]]]),
+  problem('Valid Anagram', 'Return true if s and t contain exactly the same letters with the same frequencies, in any order. Otherwise return false.\n\nArguments: s, t (strings)\nReturn: a boolean.\nConstraints: 0 ≤ s.length, t.length ≤ 1,000; lowercase English letters only.', 's, t',
+    [[['anagram','nagaram'],true], [['rat','car'],false]], [[['',''],true], [['a',''],false], [['aab','abb'],false], [['listen','silent'],true], [['zzzz','zzzz'],true], [['abc','abcc'],false]]),
+  problem('Binary Search', 'Find target in nums, a strictly increasing array of integers. Return its zero-based index, or -1 if it is absent. Aim for O(log n) time using binary search.\n\nArguments: nums (a sorted array of distinct integers), target (an integer)\nReturn: a number.\nConstraints: 0 ≤ nums.length ≤ 1,000; -1,000,000 ≤ nums[i], target ≤ 1,000,000.', 'nums, target',
+    [[[[-1,0,3,5,9,12],9],4], [[[-1,0,3,5,9,12],2],-1]], [[[[],5],-1], [[[4],4],0], [[[4],3],-1], [[[-10,-3,0,4,8],-10],0], [[[-10,-3,0,4,8],8],4], [[[1,3,5,7],6],-1]]),
+];
